@@ -13,7 +13,7 @@ app.use(fileUpload());
 
 app.post('/upload', async (req, res) => {
   if (!req.files || !req.files.lottie) {
-    return res.status(400).send('No file uploaded.');
+    return res.status(400).json({ success: false, error: 'No file uploaded.' });
   }
 
   const lottieFile = req.files.lottie;
@@ -82,7 +82,13 @@ app.post('/upload', async (req, res) => {
   const ffmpegCmd = `ffmpeg -framerate ${frameRate} -i ${framesDir}/frame%04d.png -c:v prores_ks -profile:v 4 -pix_fmt yuva444p10le -y ${outputMov}`;
 
   exec(ffmpegCmd, (err, stdout, stderr) => {
-    if (err) return res.status(500).send('FFmpeg error: ' + stderr);
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        error: 'FFmpeg error',
+        details: stderr
+      });
+    }
 
     fs.rmSync(framesDir, { recursive: true, force: true });
     fs.rmSync(uploadPath, { force: true });
