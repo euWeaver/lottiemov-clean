@@ -1,4 +1,3 @@
-
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
@@ -59,10 +58,9 @@ app.post('/upload', async (req, res) => {
 
   const browser = await puppeteer.launch({
     headless: "new",
-    executablePath: "/usr/bin/chromium-browser",
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
-  
+
   const page = await browser.newPage();
   await page.setViewport({ width, height });
   await page.goto(`file://${path.join(__dirname, 'public', 'preview.html')}`);
@@ -86,7 +84,6 @@ app.post('/upload', async (req, res) => {
   exec(ffmpegCmd, (err, stdout, stderr) => {
     if (err) return res.status(500).send('FFmpeg error: ' + stderr);
 
-    // Очистка
     fs.rmSync(framesDir, { recursive: true, force: true });
     fs.rmSync(uploadPath, { force: true });
     fs.rmSync(path.join(__dirname, 'public', 'preview.html'), { force: true });
