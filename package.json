@@ -1,14 +1,15 @@
 {
   "name": "lottie-ui",
   "version": "1.0.0",
-  "dependencies": {
-    "express": "^5.1.0",
-    "express-fileupload": "^1.5.1",
-    "puppeteer": "^19.11.1"
-  },
   "scripts": {
-    "start": "node server.js",
-    "postinstall": "npx puppeteer install"
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "puppeteer": "19.11.1"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
-
