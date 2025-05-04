@@ -57,7 +57,12 @@ app.post('/upload', async (req, res) => {
 
   fs.writeFileSync(path.join(__dirname, 'public', 'preview.html'), html);
 
-  const browser = await puppeteer.launch({ headless: "new", args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  const browser = await puppeteer.launch({
+    headless: "new",
+    executablePath: "/usr/bin/chromium-browser",
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
+  
   const page = await browser.newPage();
   await page.setViewport({ width, height });
   await page.goto(`file://${path.join(__dirname, 'public', 'preview.html')}`);
