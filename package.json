@@ -4,10 +4,11 @@
   "dependencies": {
     "express": "^5.1.0",
     "express-fileupload": "^1.5.1",
-    "puppeteer": "^24.8.0"
+    "puppeteer": "^19.11.1"
   },
   "scripts": {
     "start": "node server.js",
-    "postinstall": "npx puppeteer browsers install chrome"
+    "postinstall": "npx puppeteer install"
   }
 }
+
