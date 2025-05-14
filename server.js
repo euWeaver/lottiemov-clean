@@ -58,8 +58,10 @@ app.post('/upload', async (req, res) => {
 
   const browser = await puppeteer.launch({
     headless: "new",
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium-browser',
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
+  
 
   const page = await browser.newPage();
   await page.setViewport({ width, height });

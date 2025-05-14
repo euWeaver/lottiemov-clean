@@ -1,0 +1,12 @@
+{
+    "build": {
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "deploy": {
+      "startCommand": "npm start",
+      "restartPolicyType": "ON_FAILURE"
+    }
+  }
+  
