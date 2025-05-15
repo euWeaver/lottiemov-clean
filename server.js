@@ -80,8 +80,14 @@ app.post('/upload', async (req, res) => {
 
     await browser.close();
 
-    const outputMov = path.join(__dirname, 'public', 'output.mov');
-    const ffmpegCmd = `ffmpeg -framerate ${frameRate} -i ${framesDir}/frame%04d.png -c:v prores_ks -profile:v 4 -pix_fmt yuva444p10le -y ${outputMov}`;
+const outputMov = path.join(__dirname, 'public', 'output.mov');
+
+// Удалить старый output.mov, если он остался
+if (fs.existsSync(outputMov)) {
+  fs.rmSync(outputMov, { force: true });
+}
+
+const ffmpegCmd = `ffmpeg -framerate ${frameRate} -i ${framesDir}/frame%04d.png -c:v prores_ks -profile:v 4 -pix_fmt yuva444p10le -y ${outputMov}`;
 
     exec(ffmpegCmd, (err, stdout, stderr) => {
       if (err) {
